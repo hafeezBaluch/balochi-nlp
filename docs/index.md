@@ -1,56 +1,54 @@
 # Balochi NLP Documentation
 
-Welcome to the Balochi NLP documentation! This documentation will help you get started with using and contributing to the Balochi NLP package.
+Welcome to the Balochi NLP documentation! This toolkit provides comprehensive Natural Language Processing capabilities for the Balochi language.
 
-## Table of Contents
+## Overview
 
-1. [Installation Guide](installation.md)
-   - Prerequisites
-   - Installation Methods
-   - Verifying Installation
-   - Common Issues and Solutions
+Balochi NLP is a Python library that offers essential NLP tools and utilities specifically designed for processing Balochi text. The project aims to make Balochi text processing more accessible and standardized for researchers and developers.
 
-2. [Usage Guide](usage_guide.md)
-   - Basic Usage
-   - Advanced Usage
-   - Best Practices
-   - Examples
+## Key Features
 
-3. [API Reference](api_reference.md)
-   - Text Preprocessing
-   - Tokenization
-   - Utility Functions
-
-4. [Contributing Guide](contributing.md)
-   - Development Setup
-   - Code Style Guidelines
-   - Testing
-   - Documentation
-   - Release Process
-
-## Quick Links
-
-- [GitHub Repository](https://github.com/yourusername/balochi-nlp)
-- [Issue Tracker](https://github.com/yourusername/balochi-nlp/issues)
-- [PyPI Package](https://pypi.org/project/balochi-nlp/)
+- **Text Cleaning**: Advanced text cleaning with special handling of Balochi characters
+- **Tokenization**: Word and sentence tokenization with support for Balochi-specific patterns
+- **Special Character Handling**: Proper handling of Balochi special characters (ءُ, ءَ, ءِ)
+- **Morphological Analysis**: Basic support for prefix and suffix identification
+- **File Processing**: Built-in support for processing large text files
 
 ## Getting Started
 
-For new users, we recommend following these steps:
+- [Installation Guide](installation.md): Instructions for installing the package
+- [Usage Guide](usage_guide.md): Learn how to use the package with examples
+- [API Reference](api_reference.md): Detailed documentation of all modules and functions
+- [Contributing Guide](contributing.md): Guidelines for contributing to the project
 
-1. First, follow the [Installation Guide](installation.md) to set up Balochi NLP
-2. Read through the [Usage Guide](usage_guide.md) to learn the basics
-3. Refer to the [API Reference](api_reference.md) for detailed information about specific functions
-4. If you want to contribute, check out the [Contributing Guide](contributing.md)
+## Quick Links
+
+- [GitHub Repository](https://github.com/hafeezBaluch/balochi-nlp)
+- [Issue Tracker](https://github.com/hafeezBaluch/balochi-nlp/issues)
+- [Latest Release](https://github.com/hafeezBaluch/balochi-nlp/releases)
 
 ## Support
 
-If you need help:
-- Check the documentation
-- Open an issue on GitHub
-- Join our community discussions
-- Contact the maintainers
+If you encounter any issues or have questions:
+
+1. Check the [documentation](https://github.com/hafeezBaluch/balochi-nlp/tree/main/docs)
+2. Search existing [issues](https://github.com/hafeezBaluch/balochi-nlp/issues)
+3. Create a new issue if needed
+4. Contact the maintainer: Hafeez Baloch (hafeezullahhassan2019@gmail.com)
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for details. 
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/hafeezBaluch/balochi-nlp/blob/main/LICENSE) file for details.
+
+## Citation
+
+If you use this package in your research, please cite:
+
+```bibtex
+@software{balochi_nlp2024,
+  title = {Balochi NLP: A Natural Language Processing Toolkit for Balochi},
+  author = {Baloch, Hafeez},
+  year = {2024},
+  url = {https://github.com/hafeezBaluch/balochi-nlp}
+}
+``` 

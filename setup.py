@@ -1,24 +1,25 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+# Read the contents of README file
+with open("README.md", encoding="utf-8") as f:
+    long_description = f.read()
 
 setup(
     name="balochi-nlp",
     version="0.1.0",
-    author="PMLS",
-    author_email="your.email@example.com",
+    author="Hafeez Baloch",
+    author_email="hafeezullahhassan2019@gmail.com",
     description="A comprehensive Natural Language Processing toolkit for the Balochi language",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/balochi-nlp",
+    url="https://github.com/hafeezBaluch/balochi-nlp",
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     classifiers=[
         "Development Status :: 3 - Alpha",
+        "Intended Audience :: Developers",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
-        "Natural Language :: Balochi",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
@@ -30,33 +31,29 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "regex>=2023.0.0",
         "numpy>=1.21.0",
         "pandas>=1.3.0",
         "nltk>=3.6.0",
         "scikit-learn>=0.24.0",
+        "regex>=2023.0.0",
         "tqdm>=4.65.0",
     ],
     extras_require={
         "dev": [
-            "pytest>=6.2.0",
-            "pytest-cov>=2.10.0",
-            "pytest-mock>=3.10.0",
-            "pytest-asyncio>=0.15.0",
-            "black>=21.7b0",
-            "flake8>=6.1.0",
-            "mypy>=0.910",
-            "isort>=5.9.0",
-        ],
-        "full": [
-            "spacy>=3.1.0",
-            "transformers>=4.10.0",
-            "torch>=1.9.0",
-        ],
-        "api": [
-            "fastapi>=0.68.0",
-            "uvicorn>=0.15.0",
-            "python-dotenv>=0.19.0",
+            "pytest>=7.0",
+            "pytest-cov>=4.0",
+            "black>=22.0",
+            "isort>=5.0",
+            "flake8>=4.0",
+            "mypy>=0.9",
+            "tox>=3.24",
         ],
     },
+    entry_points={
+        "console_scripts": [
+            "balochi-nlp=balochi_nlp.cli:main",
+        ],
+    },
+    include_package_data=True,
+    zip_safe=False,
 )

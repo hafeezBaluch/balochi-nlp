@@ -21,7 +21,7 @@ pip install balochi-nlp
 For development installation:
 
 ```bash
-git clone https://github.com/yourusername/balochi-nlp.git
+git clone https://github.com/hafeezBaluch/balochi-nlp.git
 cd balochi-nlp
 pip install -e ".[dev]"
 ```
@@ -109,7 +109,7 @@ for sentence in sentences:
 
 ## Documentation
 
-For detailed documentation, visit our [documentation site](https://balochi-nlp.readthedocs.io/).
+For detailed documentation, visit our [documentation site](https://github.com/hafeezBaluch/balochi-nlp/tree/main/docs).
 
 ### Text Cleaning
 
@@ -174,12 +174,20 @@ If you use this package in your research, please cite:
 ```bibtex
 @software{balochi_nlp2024,
   title = {Balochi NLP: A Natural Language Processing Toolkit for Balochi},
-  author = {Your Name},
+  author = {Baloch, Hafeez},
   year = {2024},
-  url = {https://github.com/yourusername/balochi-nlp}
+  url = {https://github.com/hafeezBaluch/balochi-nlp}
 }
 ```
 
 ## Acknowledgments
 
 Special thanks to all contributors and the Balochi language community for their support and feedback.
+
+## Author
+
+- **Hafeez Baloch** - [GitHub](https://github.com/hafeezBaluch) - [Email](mailto:hafeezullahhassan2019@gmail.com)
+
+## Support
+
+If you encounter any issues or have questions, please [open an issue](https://github.com/hafeezBaluch/balochi-nlp/issues) on GitHub.

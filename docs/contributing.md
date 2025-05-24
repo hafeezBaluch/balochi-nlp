@@ -1,196 +1,78 @@
-# Contributing Guide
+# Contributing to Balochi NLP
 
-Thank you for your interest in contributing to Balochi NLP! This document provides guidelines and instructions for contributing to the project.
+We love your input! We want to make contributing to Balochi NLP as easy and transparent as possible, whether it's:
 
-## Development Setup
+- Reporting a bug
+- Discussing the current state of the code
+- Submitting a fix
+- Proposing new features
+- Becoming a maintainer
 
-### 1. Fork and Clone
+## We Develop with Github
 
-1. Fork the repository on GitHub
-2. Clone your fork locally:
-```bash
-git clone https://github.com/your-username/balochi-nlp.git
-cd balochi-nlp
-```
+We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
-### 2. Set Up Development Environment
+1. Fork the repo and create your branch from `main`.
+2. If you've added code that should be tested, add tests.
+3. If you've changed APIs, update the documentation.
+4. Ensure the test suite passes.
+5. Make sure your code lints.
+6. Issue that pull request!
 
-```bash
-# Create virtual environment
-python -m venv venv
+## Any contributions you make will be under the MIT Software License
 
-# Activate virtual environment
-# Windows
-.\venv\Scripts\activate
-# macOS/Linux
-source venv/bin/activate
+In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-# Install development dependencies
-pip install -e ".[dev]"
-```
+## Report bugs using Github's [issue tracker](https://github.com/hafeezBaluch/balochi-nlp/issues)
 
-### 3. Run Tests
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/hafeezBaluch/balochi-nlp/issues/new); it's that easy!
 
-```bash
-pytest
-```
+## Write bug reports with detail, background, and sample code
 
-## Development Guidelines
+**Great Bug Reports** tend to have:
 
-### Code Style
+- A quick summary and/or background
+- Steps to reproduce
+  - Be specific!
+  - Give sample code if you can.
+- What you expected would happen
+- What actually happens
+- Notes (possibly including why you think this might be happening, or stuff you tried that didn't work)
 
-- Follow PEP 8 style guide
-- Use meaningful variable and function names
-- Add docstrings to all functions and classes
-- Keep functions focused and single-purpose
-- Use type hints where possible
+## Development Process
 
-Example:
-```python
-def clean_text(
-    text: str,
-    remove_numbers: bool = True,
-    preserve_special_chars: bool = True
-) -> str:
-    """Clean and normalize Balochi text.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/hafeezBaluch/balochi-nlp.git
+   cd balochi-nlp
+   ```
 
-    Args:
-        text: Input text to clean
-        remove_numbers: Whether to remove numerical digits
-        preserve_special_chars: Whether to preserve Balochi special characters
+2. Create a virtual environment and install dependencies:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -e ".[dev]"
+   ```
 
-    Returns:
-        Cleaned text string
-    """
-    # Implementation
-```
+3. Install pre-commit hooks:
+   ```bash
+   pre-commit install
+   ```
 
-### Git Workflow
+4. Make your changes and run tests:
+   ```bash
+   pytest
+   ```
 
-1. Create a new branch for your feature:
-```bash
-git checkout -b feature-name
-```
+## License
 
-2. Make your changes and commit:
-```bash
-git add .
-git commit -m "Description of changes"
-```
+By contributing, you agree that your contributions will be licensed under its MIT License.
 
-3. Keep your fork up to date:
-```bash
-git remote add upstream https://github.com/original/balochi-nlp.git
-git fetch upstream
-git rebase upstream/main
-```
+## References
 
-4. Push changes and create pull request:
-```bash
-git push origin feature-name
-```
+This document was adapted from the open-source contribution guidelines for [Facebook's Draft](https://github.com/facebook/draft-js/blob/a9316a723f9e918afde44dea68b5f9f39b7d9b00/CONTRIBUTING.md).
 
-### Pull Request Guidelines
+## Contact
 
-1. **Before Submitting:**
-   - Run all tests
-   - Update documentation if needed
-   - Add tests for new features
-   - Follow code style guidelines
-
-2. **PR Description:**
-   - Clearly describe the changes
-   - Reference any related issues
-   - Include before/after examples if relevant
-
-3. **Review Process:**
-   - Address review comments
-   - Keep PR focused on single feature/fix
-   - Be responsive to feedback
-
-## Testing
-
-### Writing Tests
-
-1. **Test Structure:**
-```python
-def test_feature_name():
-    """Test description."""
-    # Arrange
-    input_data = "test input"
-    expected = "expected output"
-    
-    # Act
-    result = function_to_test(input_data)
-    
-    # Assert
-    assert result == expected
-```
-
-2. **Test Categories:**
-   - Unit tests for individual functions
-   - Integration tests for component interaction
-   - Edge cases and error conditions
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run specific test file
-pytest tests/test_cleaner.py
-
-# Run with coverage
-pytest --cov=balochi_nlp
-
-# Generate coverage report
-pytest --cov=balochi_nlp --cov-report=html
-```
-
-## Documentation
-
-### Writing Documentation
-
-1. **Docstrings:**
-   - Use Google style docstrings
-   - Include types, parameters, returns
-   - Add examples where helpful
-
-2. **README Updates:**
-   - Keep installation instructions current
-   - Update feature list
-   - Add new examples
-
-3. **API Documentation:**
-   - Document all public interfaces
-   - Include usage examples
-   - Note any breaking changes
-
-## Release Process
-
-1. **Version Bump:**
-   - Update version in setup.py
-   - Update CHANGELOG.md
-   - Create release notes
-
-2. **Testing:**
-   - Run full test suite
-   - Test installation from clean environment
-   - Verify documentation accuracy
-
-3. **Release:**
-   - Tag release in git
-   - Build and upload to PyPI
-   - Update documentation
-
-## Getting Help
-
-- Open an issue for bugs
-- Use discussions for questions
-- Join our community chat
-- Contact maintainers directly
-
-## Code of Conduct
-
-Please note that this project follows a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold this code. 
+For any questions or concerns, please contact:
+- Hafeez Baloch (hafeezullahhassan2019@gmail.com) 
