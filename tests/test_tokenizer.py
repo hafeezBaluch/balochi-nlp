@@ -1,6 +1,6 @@
 import pytest
-from src.tokenizers.word_tokenizer import BalochiWordTokenizer
-from src.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
+from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
+from balochi_nlp.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
 
 @pytest.fixture
 def word_tokenizer():
