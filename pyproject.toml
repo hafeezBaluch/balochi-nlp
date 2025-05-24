@@ -11,7 +11,7 @@ license = {file = "LICENSE"}
 authors = [
     {name = "Hafeez Baloch", email = "hafeezullahhassan2019@gmail.com"},
 ]
-dynamic = ["version"]
+version = "0.1.0"
 dependencies = [
     "numpy>=1.21.0",
     "pandas>=1.3.0",
@@ -30,11 +30,13 @@ dev = [
     "flake8>=4.0",
     "mypy>=0.9",
     "tox>=3.24",
+    "sphinx>=4.5.0",
+    "sphinx-rtd-theme>=1.0.0",
 ]
 
 [tool.setuptools]
-packages = ["balochi_nlp"]
 package-dir = {"" = "src"}
+packages = ["balochi_nlp"]
 
 [tool.black]
 line-length = 88
