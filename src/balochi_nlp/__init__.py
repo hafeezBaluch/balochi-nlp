@@ -9,8 +9,8 @@ This package provides tools and utilities for processing Balochi text, including
 """
 
 __version__ = "0.1.0"
-__author__ = "PMLS"
-__email__ = "your.email@example.com"
+__author__ = "Hafeez Baloch"
+__email__ = "hafeezullahhassan2019@gmail.com"
 
 from balochi_nlp.preprocessing import BalochiTextCleaner
 from balochi_nlp.tokenizers import BalochiWordTokenizer, BalochiSentenceTokenizer
