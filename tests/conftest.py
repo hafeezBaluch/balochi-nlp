@@ -1,9 +1,10 @@
 """Pytest configuration file."""
 
-import pytest
-import sys
 import os
+import sys
 import tempfile
+
+import pytest
 
 
 @pytest.fixture(scope="session")

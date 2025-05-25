@@ -5,8 +5,8 @@ from pathlib import Path
 
 from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
 from balochi_nlp.preprocessing.normalizer import BalochiTextNormalizer
-from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
 from balochi_nlp.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
+from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
 
 
 def read_text_file(file_path: str) -> str:
