@@ -7,6 +7,7 @@ A comprehensive Natural Language Processing toolkit for the Balochi language. Th
 - **Text Cleaning**: Advanced text cleaning with special handling of Balochi characters
 - **Tokenization**: Word and sentence tokenization with support for Balochi-specific patterns
 - **Special Character Handling**: Proper handling of Balochi special characters (ءُ, ءَ, ءِ)
+- **Stopwords**: Comprehensive stopword removal with customizable stopword lists
 - **Morphological Analysis**: Basic support for prefix and suffix identification
 - **File Processing**: Built-in support for processing large text files
 
@@ -81,13 +82,14 @@ deactivate
 Here's a simple example of using the package:
 
 ```python
-from balochi_nlp.preprocessing import BalochiTextCleaner
+from balochi_nlp.preprocessing import BalochiTextCleaner, BalochiStopwordRemover
 from balochi_nlp.tokenizers import BalochiWordTokenizer, BalochiSentenceTokenizer
 
 # Initialize components
 cleaner = BalochiTextCleaner()
 word_tokenizer = BalochiWordTokenizer()
 sentence_tokenizer = BalochiSentenceTokenizer()
+stopword_remover = BalochiStopwordRemover()
 
 # Example text
 text = """
@@ -101,10 +103,13 @@ cleaned_text = cleaner.clean_text(text)
 # Tokenize into sentences
 sentences = sentence_tokenizer.tokenize(cleaned_text)
 
-# Tokenize each sentence into words
+# Process each sentence
 for sentence in sentences:
+    # Tokenize into words
     words = word_tokenizer.tokenize(sentence)
-    print(words)
+    # Remove stopwords
+    filtered_words = stopword_remover.remove_stopwords_from_list(words)
+    print(filtered_words)
 ```
 
 ## Documentation
@@ -145,6 +150,31 @@ tokens = tokenizer.tokenize(text)
 
 # Tokenization with affix analysis
 tokens_with_affixes = tokenizer.tokenize_with_affixes(text)
+```
+
+### Text Processing
+
+The package provides comprehensive text processing capabilities:
+
+```python
+from balochi_nlp.preprocessing import BalochiTextCleaner, BalochiStopwordRemover
+
+# Initialize processors
+cleaner = BalochiTextCleaner()
+stopword_remover = BalochiStopwordRemover()
+
+# Clean text
+cleaned_text = cleaner.clean_text(text)
+
+# Remove stopwords
+text_without_stopwords = stopword_remover.remove_stopwords(cleaned_text)
+
+# Use custom stopwords
+custom_stopwords = {"کتاب", "روچ"}  # Add domain-specific stopwords
+remover = BalochiStopwordRemover(custom_stopwords=custom_stopwords)
+
+# Or load stopwords from a file
+remover = BalochiStopwordRemover(stopwords_file="path/to/custom_stopwords.txt")
 ```
 
 ## Contributing

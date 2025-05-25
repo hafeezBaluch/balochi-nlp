@@ -12,6 +12,7 @@ recursive-include tests *
 recursive-include docs *.md *.rst *.py *.yml
 recursive-include examples *.py *.ipynb
 recursive-include src/balochi_nlp/data *
+recursive-include src/balochi_nlp/resources *
 
 prune docs/build
 prune docs/_build

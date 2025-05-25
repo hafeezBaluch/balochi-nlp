@@ -1,18 +1,50 @@
 API Reference
-============
+=============
+
+This section provides detailed API documentation for the Balochi NLP package.
 
 Preprocessing
 ------------
 
-.. automodule:: balochi_nlp.preprocessing
+BalochiTextCleaner
+~~~~~~~~~~~~~~~~~
+
+.. autoclass:: balochi_nlp.preprocessing.BalochiTextCleaner
    :members:
    :undoc-members:
    :show-inheritance:
 
-Tokenizers
----------
+BalochiTextNormalizer
+~~~~~~~~~~~~~~~~~~~
 
-.. automodule:: balochi_nlp.tokenizers
+.. autoclass:: balochi_nlp.preprocessing.BalochiTextNormalizer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+BalochiStopwordRemover
+~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: balochi_nlp.preprocessing.BalochiStopwordRemover
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Tokenization
+-----------
+
+BalochiWordTokenizer
+~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: balochi_nlp.tokenizers.BalochiWordTokenizer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+BalochiSentenceTokenizer
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: balochi_nlp.tokenizers.BalochiSentenceTokenizer
    :members:
    :undoc-members:
    :show-inheritance:
