@@ -15,7 +15,9 @@ def read_text_file(file_path: str) -> str:
         return f.read()
 
 
-def write_output(output: Dict[str, Union[str, int, list]], output_file: Optional[str] = None) -> None:
+def write_output(
+    output: Dict[str, Union[str, int, list]], output_file: Optional[str] = None
+) -> None:
     """Write output to file or stdout."""
     output_json = json.dumps(output, ensure_ascii=False, indent=2)
     if output_file:
@@ -77,7 +79,7 @@ def main() -> None:
     # Process according to task
     try:
         output: Dict[str, Union[str, int, list]] = {}
-        
+
         if args.task == "tokenize-words":
             word_tokenizer = BalochiWordTokenizer()
             tokens = word_tokenizer.tokenize(text)

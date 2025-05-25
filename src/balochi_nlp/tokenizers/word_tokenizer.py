@@ -51,7 +51,8 @@ class BalochiWordTokenizer:
             text (str): Input text in Balochi
 
         Returns:
-            List[Dict[str, List[str]]]: List of dictionaries containing token information
+            List[Dict[str, List[str]]]: List of dictionaries containing token
+                information
         """
         tokens = self.tokenize(text)
         result: List[Dict[str, List[str]]] = []
@@ -60,7 +61,7 @@ class BalochiWordTokenizer:
             token_info: Dict[str, List[str]] = {
                 "token": [token],
                 "prefixes": [],
-                "suffixes": []
+                "suffixes": [],
             }
 
             # Check for prefixes
