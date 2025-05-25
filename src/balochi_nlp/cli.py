@@ -1,7 +1,6 @@
 import argparse
 import json
 import sys
-from pathlib import Path
 
 from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
 from balochi_nlp.preprocessing.normalizer import BalochiTextNormalizer
@@ -92,7 +91,6 @@ def main():
 
         elif args.task == "clean":
             cleaner = BalochiTextCleaner()
-            keep_chars = args.keep_chars.split(",") if args.keep_chars else None
             cleaned_text = cleaner.clean_text(
                 text,
                 remove_numbers=args.remove_numbers,
