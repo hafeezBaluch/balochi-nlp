@@ -1,5 +1,5 @@
 """
-Balochi NLP: A comprehensive Natural Language Processing toolkit for the Balochi language.
+A comprehensive Natural Language Processing toolkit for the Balochi language.
 
 This package provides tools and utilities for processing Balochi text, including:
 - Text cleaning and normalization

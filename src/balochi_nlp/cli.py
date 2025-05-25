@@ -1,131 +1,78 @@
+"""Command line interface for Balochi NLP tools."""
 import argparse
-import json
 import sys
-from pathlib import Path
 
-from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
-from balochi_nlp.preprocessing.normalizer import BalochiTextNormalizer
-from balochi_nlp.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
-from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
+def create_parser():
+    """Create the command line argument parser."""
+    parser = argparse.ArgumentParser(
+        description="Balochi NLP command line tools"
+    )
+    subparsers = parser.add_subparsers(dest="command", help="Available commands")
 
+    # Clean text command
+    clean_parser = subparsers.add_parser(
+        "clean", help="Clean and normalize Balochi text"
+    )
+    clean_parser.add_argument(
+        "input", help="Input text or file path"
+    )
+    clean_parser.add_argument(
+        "-o", "--output",
+        help="Output file path (if not specified, prints to stdout)",
+        default=None
+    )
+    clean_parser.add_argument(
+        "--preserve-numbers",
+        help="Preserve numbers in the text",
+        action="store_true"
+    )
+    clean_parser.add_argument(
+        "--preserve-urls",
+        help="Preserve URLs in the text",
+        action="store_true"
+    )
+    clean_parser.add_argument(
+        "--preserve-emails",
+        help="Preserve email addresses in the text",
+        action="store_true"
+    )
 
-def read_text_file(file_path: str) -> str:
-    """Read text from a file."""
-    with open(file_path, "r", encoding="utf-8") as f:
-        return f.read()
-
-
-def write_output(output: dict, output_file: str = None):
-    """Write output to file or stdout."""
-    output_json = json.dumps(output, ensure_ascii=False, indent=2)
-    if output_file:
-        with open(output_file, "w", encoding="utf-8") as f:
-            f.write(output_json)
-    else:
-        print(output_json)
-
+    return parser
 
 def main():
-    parser = argparse.ArgumentParser(description="Balochi NLP Tools")
-    parser.add_argument("input_file", help="Input text file path")
-    parser.add_argument("--output", "-o", help="Output file path (optional)")
-    parser.add_argument(
-        "--task",
-        "-t",
-        required=True,
-        choices=["tokenize-words", "tokenize-sentences", "clean", "normalize"],
-        help="NLP task to perform",
-    )
-
-    # Task-specific arguments
-    parser.add_argument(
-        "--remove-urls", action="store_true", help="Remove URLs from text"
-    )
-    parser.add_argument(
-        "--remove-emails", action="store_true", help="Remove email addresses from text"
-    )
-    parser.add_argument(
-        "--remove-numbers", action="store_true", help="Remove numbers from text"
-    )
-    parser.add_argument(
-        "--remove-emojis", action="store_true", help="Remove emojis from text"
-    )
-    parser.add_argument(
-        "--remove-special",
-        action="store_true",
-        help="Remove special characters from text",
-    )
-    parser.add_argument(
-        "--keep-chars", help="Special characters to keep (comma-separated)"
-    )
-    parser.add_argument(
-        "--remove-diacritics", action="store_true", help="Remove diacritical marks"
-    )
-
+    """Main entry point for the CLI."""
+    parser = create_parser()
     args = parser.parse_args()
 
-    # Read input text
-    try:
-        text = read_text_file(args.input_file)
-    except FileNotFoundError:
-        print(f"Error: Input file '{args.input_file}' not found.", file=sys.stderr)
-        sys.exit(1)
-    except Exception as e:
-        print(f"Error reading input file: {str(e)}", file=sys.stderr)
+    if args.command is None:
+        parser.print_help()
         sys.exit(1)
 
-    # Process according to task
-    try:
-        if args.task == "tokenize-words":
-            tokenizer = BalochiWordTokenizer()
-            output = {
-                "tokens": tokenizer.tokenize(text),
-                "token_count": len(tokenizer.tokenize(text)),
-            }
+    if args.command == "clean":
+        from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
+        cleaner = BalochiTextCleaner()
 
-        elif args.task == "tokenize-sentences":
-            tokenizer = BalochiSentenceTokenizer()
-            output = {
-                "sentences": tokenizer.tokenize(text),
-                "sentence_count": len(tokenizer.tokenize(text)),
-            }
+        # Read input
+        try:
+            with open(args.input, "r", encoding="utf-8") as f:
+                text = f.read()
+        except FileNotFoundError:
+            text = args.input
 
-        elif args.task == "clean":
-            cleaner = BalochiTextCleaner()
-            keep_chars = args.keep_chars.split(",") if args.keep_chars else None
-            cleaned_text = cleaner.clean_text(
-                text,
-                remove_numbers=args.remove_numbers,
-                preserve_special_chars=not args.remove_special,
-            )
-            output = {
-                "original_length": len(text),
-                "cleaned_length": len(cleaned_text),
-                "cleaned_text": cleaned_text,
-            }
+        # Clean text
+        cleaned_text = cleaner.clean_text(
+            text,
+            remove_numbers=not args.preserve_numbers,
+            remove_urls=not args.preserve_urls,
+            remove_emails=not args.preserve_emails
+        )
 
-        elif args.task == "normalize":
-            normalizer = BalochiTextNormalizer()
-            normalized_text = normalizer.normalize(
-                text, remove_diacritics=args.remove_diacritics
-            )
-            output = {
-                "original_length": len(text),
-                "normalized_length": len(normalized_text),
-                "normalized_text": normalized_text,
-            }
-
-    except Exception as e:
-        print(f"Error processing text: {str(e)}", file=sys.stderr)
-        sys.exit(1)
-
-    # Write output
-    try:
-        write_output(output, args.output)
-    except Exception as e:
-        print(f"Error writing output: {str(e)}", file=sys.stderr)
-        sys.exit(1)
-
+        # Output
+        if args.output:
+            with open(args.output, "w", encoding="utf-8") as f:
+                f.write(cleaned_text)
+        else:
+            print(cleaned_text)
 
 if __name__ == "__main__":
     main()

@@ -1,157 +1,75 @@
+"""Text cleaning utilities for Balochi text."""
 import re
-from typing import List, Optional
-
 
 class BalochiTextCleaner:
-    """Text cleaner for Balochi language."""
+    """A class for cleaning and preprocessing Balochi text.
+
+    This class provides methods to clean Balochi text by removing unwanted
+    elements like URLs, email addresses, numbers, and special characters.
+    """
 
     def __init__(self):
-        # Regular expressions for cleaning
-        self.url_pattern = r"https?://\S+|www\.\S+"
-        self.email_pattern = r"\S+@\S+\.\S+"
-        self.number_pattern = r"\d+"
-        self.emoji_pattern = r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]"
-
-        # Non-Balochi script patterns
-        self.latin_pattern = r"[a-zA-Z]+"
-        self.chinese_pattern = r"[\u4e00-\u9fff]+"
-        self.devanagari_pattern = r"[\u0900-\u097F]+"
-
-        # Extra spaces and newlines
-        self.extra_spaces = r"\s+"
-        self.extra_newlines = r"\n\s*\n"
-
-        # Special Balochi characters
-        self.special_chars = ["ءُ", "ءَ", "ءِ"]
-
-    def remove_urls(self, text: str) -> str:
-        """Remove URLs from text."""
-        return re.sub(self.url_pattern, " ", text)
-
-    def remove_emails(self, text: str) -> str:
-        """Remove email addresses from text."""
-        return re.sub(self.email_pattern, " ", text)
-
-    def remove_numbers(self, text: str) -> str:
-        """Remove numbers from text."""
-        return re.sub(self.number_pattern, " ", text)
-
-    def remove_emojis(self, text: str) -> str:
-        """Remove emojis from text."""
-        return re.sub(self.emoji_pattern, " ", text)
-
-    def remove_non_balochi(self, text: str) -> str:
-        """Remove non-Balochi script characters."""
-        text = re.sub(self.latin_pattern, " ", text)
-        text = re.sub(self.chinese_pattern, " ", text)
-        text = re.sub(self.devanagari_pattern, " ", text)
-        return text
-
-    def normalize_whitespace(self, text: str) -> str:
-        """Normalize whitespace and newlines."""
-        # Replace multiple spaces with single space
-        text = re.sub(self.extra_spaces, " ", text)
-        # Replace multiple newlines with single newline
-        text = re.sub(self.extra_newlines, "\n", text)
-        return text.strip()
-
-    def process_special_chars(self, text: str) -> str:
-        """
-        Process text with special handling for Balochi characters.
-        Particularly handles the 'ء' character and its combinations.
-        """
-        processed_tokens = []
-        for token in text.split():
-            if "ء" in token:
-                # Handle special cases like 'ءُ', 'ءَ', 'ءِ' being attached to words
-                if "ءُ" in token:
-                    parts = token.split("ءُ")
-                    for part in parts:
-                        if part:
-                            processed_tokens.append(part)
-                    processed_tokens.append("ءُ")
-                elif "ءَ" in token:
-                    parts = token.split("ءَ")
-                    for part in parts:
-                        if part:
-                            processed_tokens.append(part)
-                    processed_tokens.append("ءَ")
-                elif "ءِ" in token:
-                    parts = token.split("ءِ")
-                    for part in parts:
-                        if part:
-                            processed_tokens.append(part)
-                    processed_tokens.append("ءِ")
-                else:
-                    # For other cases, split around 'ء'
-                    parts = re.split(r"(ء)", token)
-                    for part in parts:
-                        if part:  # Avoid empty strings
-                            processed_tokens.append(part)
-            else:
-                processed_tokens.append(token)
-        return " ".join(processed_tokens)
+        """Initialize the cleaner with regex patterns."""
+        self.url_pattern = re.compile(r'https?://\S+|www\.\S+')
+        self.email_pattern = re.compile(r'\S+@\S+\.\S+')
+        self.number_pattern = re.compile(r'\d+')
+        self.emoji_pattern = re.compile(
+            "["
+            "\U0001F600-\U0001F64F"  # emoticons
+            "\U0001F300-\U0001F5FF"  # symbols & pictographs
+            "\U0001F680-\U0001F6FF"  # transport & map symbols
+            "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+            "\U00002702-\U000027B0"
+            "\U000024C2-\U0001F251"
+            "]+"
+        )
 
     def clean_text(
         self,
         text: str,
+        remove_urls: bool = True,
+        remove_emails: bool = True,
         remove_numbers: bool = True,
-        preserve_special_chars: bool = True,
+        remove_emojis: bool = True,
+        preserve_special_chars: bool = True
     ) -> str:
-        """
-        Comprehensive text cleaning that combines all cleaning operations and
-        properly handles Balochi special characters.
+        """Clean the input text by removing unwanted elements.
 
         Args:
-            text (str): Input text to clean
-            remove_numbers (bool): Whether to remove numbers from text
-            preserve_special_chars (bool): Whether to preserve and handle special Balochi characters
+            text: Input text to clean
+            remove_urls: Whether to remove URLs
+            remove_emails: Whether to remove email addresses
+            remove_numbers: Whether to remove numeric digits
+            remove_emojis: Whether to remove emoji characters
+            preserve_special_chars: Whether to preserve special Balochi chars
 
         Returns:
-            str: Cleaned text
+            Cleaned text string
         """
-        # Initial cleaning
-        text = text.strip()
-
-        # Remove unwanted elements
-        text = self.remove_urls(text)
-        text = self.remove_emails(text)
-        text = self.remove_emojis(text)
-
-        if preserve_special_chars:
-            # Remove unwanted characters while preserving special Balochi characters
-            text = re.sub(r"[^\w\sءُءَءِ،؛٫.!?؟]", "", text)
-        else:
-            # Remove all non-word characters
-            text = re.sub(r"[^\w\s]", "", text)
-
-        # Remove English letters and other non-Balochi scripts
-        text = self.remove_non_balochi(text)
-
-        # Remove numbers if requested
+        if remove_urls:
+            text = self.url_pattern.sub('', text)
+        if remove_emails:
+            text = self.email_pattern.sub('', text)
         if remove_numbers:
-            text = self.remove_numbers(text)
+            text = self.number_pattern.sub('', text)
+        if remove_emojis:
+            text = self.emoji_pattern.sub('', text)
 
         # Normalize whitespace
-        text = self.normalize_whitespace(text)
+        text = ' '.join(text.split())
 
-        # Handle special Balochi characters if requested
-        if preserve_special_chars:
-            text = self.process_special_chars(text)
-
-        return text.strip()
+        return text
 
     def clean_file(self, file_path: str, **kwargs) -> str:
-        """
-        Read a file and clean its contents.
+        """Clean text from a file.
 
         Args:
-            file_path (str): Path to the file to clean
-            **kwargs: Additional arguments to pass to clean_text
+            file_path: Path to the input file
+            **kwargs: Additional arguments passed to clean_text()
 
         Returns:
-            str: Cleaned text
+            Cleaned text string
         """
-        with open(file_path, "r", encoding="utf-8") as file:
-            text = file.read()
+        with open(file_path, 'r', encoding='utf-8') as f:
+            text = f.read()
         return self.clean_text(text, **kwargs)

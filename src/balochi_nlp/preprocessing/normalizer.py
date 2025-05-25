@@ -1,103 +1,38 @@
-from typing import Dict, List
-
+"""Normalization utilities for Balochi text."""
+import re
 
 class BalochiTextNormalizer:
-    """Text normalizer for Balochi language."""
+    """A class for normalizing Balochi text."""
 
     def __init__(self):
-        # Character normalization mappings
-        self.char_maps = {
-            # Normalize different forms of letters
-            "ي": "ی",
-            "ئ": "ی",
-            "ك": "ک",
-            "ة": "ہ",
-            # Add more character mappings as needed
+        """Initialize normalizer with character mappings."""
+        self.char_map = {
+            'ي': 'ی',
+            'ك': 'ک',
+            'ة': 'ہ',
+            'ۀ': 'ہ',
         }
-
-        # Common diacritics in Balochi
-        self.diacritics = [
-            "\u064b",  # Fathatan
-            "\u064c",  # Dammatan
-            "\u064d",  # Kasratan
-            "\u064e",  # Fatha
-            "\u064f",  # Damma
-            "\u0650",  # Kasra
-            "\u0651",  # Shadda
-            "\u0652",  # Sukun
-        ]
-
-    def normalize_chars(self, text: str) -> str:
-        """
-        Normalize characters according to the mapping.
-
-        Args:
-            text (str): Input text
-
-        Returns:
-            str: Normalized text
-        """
-        for original, normalized in self.char_maps.items():
-            text = text.replace(original, normalized)
-        return text
-
-    def remove_diacritics(self, text: str) -> str:
-        """
-        Remove diacritical marks from text.
-
-        Args:
-            text (str): Input text
-
-        Returns:
-            str: Text without diacritics
-        """
-        for diacritic in self.diacritics:
-            text = text.replace(diacritic, "")
-        return text
-
-    def normalize_spaces(self, text: str) -> str:
-        """
-        Normalize spaces in text.
-
-        Args:
-            text (str): Input text
-
-        Returns:
-            str: Text with normalized spaces
-        """
-        # Replace multiple spaces with single space
-        text = " ".join(text.split())
-
-        # Fix spacing around punctuation
-        text = text.replace(" ،", "،")
-        text = text.replace(" ؟", "؟")
-        text = text.replace(" !", "!")
-        text = text.replace(" .", ".")
-
-        return text
+        self.diacritics = re.compile(r'[\u064B-\u065F\u0670]')
 
     def normalize(self, text: str, remove_diacritics: bool = False) -> str:
-        """
-        Apply all normalization steps to the text.
+        """Normalize Balochi text.
 
         Args:
-            text (str): Input text
-            remove_diacritics (bool): Whether to remove diacritical marks
+            text: Input text to normalize
+            remove_diacritics: Whether to remove diacritical marks
 
         Returns:
-            str: Fully normalized text
+            Normalized text string
         """
-        # Character normalization
-        text = self.normalize_chars(text)
+        # Replace characters according to mapping
+        for old, new in self.char_map.items():
+            text = text.replace(old, new)
 
         # Remove diacritics if requested
         if remove_diacritics:
-            text = self.remove_diacritics(text)
+            text = self.diacritics.sub('', text)
 
-        # Space normalization
-        text = self.normalize_spaces(text)
-
-        return text.strip()
+        return text
 
 
 def normalize_text(text):

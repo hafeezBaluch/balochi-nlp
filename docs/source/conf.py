@@ -1,7 +1,6 @@
 import os
 import sys
-
-sys.path.insert(0, os.path.abspath('../../src'))
+sys.path.insert(0, os.path.abspath('..'))
 
 project = 'Balochi NLP'
 copyright = '2024, Hafeez Baloch'
@@ -12,11 +11,20 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
-    'sphinx.ext.intersphinx',
+    'myst_parser',  # For markdown support
 ]
 
+# Source file parsers
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
+# The master toctree document
+master_doc = 'index'
+
 templates_path = ['_templates']
-exclude_patterns = []
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
