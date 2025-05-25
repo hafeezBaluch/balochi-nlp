@@ -9,7 +9,10 @@ setup(
     version="0.1.0",
     author="Hafeez Baloch",
     author_email="hafeezullahhassan2019@gmail.com",
-    description="A comprehensive Natural Language Processing toolkit for the Balochi language",
+    description=(
+        "A comprehensive Natural Language Processing toolkit "
+        "for the Balochi language"
+    ),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/hafeezBaluch/balochi-nlp",

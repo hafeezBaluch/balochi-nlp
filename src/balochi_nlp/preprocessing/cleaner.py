@@ -1,5 +1,4 @@
 import re
-from typing import List, Optional
 
 
 class BalochiTextCleaner:
@@ -10,7 +9,10 @@ class BalochiTextCleaner:
         self.url_pattern = r"https?://\S+|www\.\S+"
         self.email_pattern = r"\S+@\S+\.\S+"
         self.number_pattern = r"\d+"
-        self.emoji_pattern = r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]"
+        self.emoji_pattern = (
+            r"[\U0001F600-\U0001F64F\U0001F300-\U0001F5FF"
+            r"\U0001F680-\U0001F6FF\U0001F1E0-\U0001F1FF]"
+        )
 
         # Non-Balochi script patterns
         self.latin_pattern = r"[a-zA-Z]+"
@@ -105,7 +107,8 @@ class BalochiTextCleaner:
         Args:
             text (str): Input text to clean
             remove_numbers (bool): Whether to remove numbers from text
-            preserve_special_chars (bool): Whether to preserve and handle special Balochi characters
+            preserve_special_chars (bool): Whether to preserve and handle special
+                Balochi characters
 
         Returns:
             str: Cleaned text

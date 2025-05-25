@@ -1,6 +1,3 @@
-from typing import Dict, List
-
-
 class BalochiTextNormalizer:
     """Text normalizer for Balochi language."""
 
