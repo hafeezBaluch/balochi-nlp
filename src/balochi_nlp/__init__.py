@@ -13,7 +13,7 @@ __author__ = "Hafeez Baloch"
 __email__ = "hafeezullahhassan2019@gmail.com"
 
 from balochi_nlp.preprocessing import BalochiTextCleaner
-from balochi_nlp.tokenizers import BalochiWordTokenizer, BalochiSentenceTokenizer
+from balochi_nlp.tokenizers import BalochiSentenceTokenizer, BalochiWordTokenizer
 
 __all__ = [
     "BalochiTextCleaner",

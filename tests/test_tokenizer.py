@@ -1,6 +1,7 @@
 import pytest
-from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
+
 from balochi_nlp.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
+from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
 
 
 @pytest.fixture
