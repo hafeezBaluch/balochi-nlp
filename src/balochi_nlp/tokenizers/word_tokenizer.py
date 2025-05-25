@@ -1,5 +1,5 @@
 import re
-from typing import Dict, List
+from typing import Dict, List, Union
 
 
 class BalochiWordTokenizer:
@@ -43,7 +43,7 @@ class BalochiWordTokenizer:
 
         return processed_tokens
 
-    def tokenize_with_affixes(self, text: str) -> List[Dict[str, List[str]]]:
+    def tokenize_with_affixes(self, text: str) -> List[Dict[str, Union[str, List[str]]]]:
         """
         Tokenize text and identify prefixes and suffixes.
 
@@ -51,16 +51,17 @@ class BalochiWordTokenizer:
             text (str): Input text in Balochi
 
         Returns:
-            List[Dict[str, List[str]]]: List of dictionaries containing token information
+            List[Dict[str, Union[str, List[str]]]]: List of dictionaries containing token
+                information
         """
         tokens = self.tokenize(text)
-        result: List[Dict[str, List[str]]] = []
+        result: List[Dict[str, Union[str, List[str]]]] = []
 
         for token in tokens:
-            token_info: Dict[str, List[str]] = {
-                "token": [token],
+            token_info: Dict[str, Union[str, List[str]]] = {
+                "token": token,
                 "prefixes": [],
-                "suffixes": []
+                "suffixes": [],
             }
 
             # Check for prefixes
