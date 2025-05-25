@@ -2,4 +2,4 @@
 
 from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
 
-__all__ = ["BalochiTextCleaner"] 
+__all__ = ["BalochiTextCleaner"]

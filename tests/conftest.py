@@ -2,11 +2,13 @@ import pytest
 import os
 import tempfile
 
+
 @pytest.fixture(scope="session")
 def test_data_dir():
     """Create a temporary directory for test data."""
     with tempfile.TemporaryDirectory() as tmpdir:
         yield tmpdir
+
 
 @pytest.fixture(scope="session")
 def sample_balochi_text():
@@ -16,6 +18,7 @@ def sample_balochi_text():
     من روچ روچ کتابءَ وانان۔ منی لوٹ اِش اِنت کہ من وتی زبانءَ گیش زانان۔
     من وتی درسءِ یات کنان۔ من مزنیں آدمے بیاں۔
     """
+
 
 @pytest.fixture(scope="session")
 def sample_mixed_text():
@@ -28,22 +31,15 @@ def sample_mixed_text():
     Emoji: 😊 🌟
     """
 
+
 @pytest.fixture(scope="session")
 def sample_special_chars():
     """Return a sample text with special Balochi characters."""
     return "دشتءِ کتابءَ گسءُ"
 
+
 def pytest_configure(config):
     """Configure pytest with custom markers."""
-    config.addinivalue_line(
-        "markers",
-        "cleaner: mark test as cleaner related"
-    )
-    config.addinivalue_line(
-        "markers",
-        "tokenizer: mark test as tokenizer related"
-    )
-    config.addinivalue_line(
-        "markers",
-        "integration: mark test as integration test"
-    ) 
+    config.addinivalue_line("markers", "cleaner: mark test as cleaner related")
+    config.addinivalue_line("markers", "tokenizer: mark test as tokenizer related")
+    config.addinivalue_line("markers", "integration: mark test as integration test")
