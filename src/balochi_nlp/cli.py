@@ -8,40 +8,62 @@ from balochi_nlp.preprocessing.normalizer import BalochiTextNormalizer
 from balochi_nlp.tokenizers.word_tokenizer import BalochiWordTokenizer
 from balochi_nlp.tokenizers.sentence_tokenizer import BalochiSentenceTokenizer
 
+
 def read_text_file(file_path: str) -> str:
     """Read text from a file."""
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         return f.read()
+
 
 def write_output(output: dict, output_file: str = None):
     """Write output to file or stdout."""
     output_json = json.dumps(output, ensure_ascii=False, indent=2)
     if output_file:
-        with open(output_file, 'w', encoding='utf-8') as f:
+        with open(output_file, "w", encoding="utf-8") as f:
             f.write(output_json)
     else:
         print(output_json)
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Balochi NLP Tools')
-    parser.add_argument('input_file', help='Input text file path')
-    parser.add_argument('--output', '-o', help='Output file path (optional)')
-    parser.add_argument('--task', '-t', required=True,
-                       choices=['tokenize-words', 'tokenize-sentences', 
-                               'clean', 'normalize'],
-                       help='NLP task to perform')
-    
+    parser = argparse.ArgumentParser(description="Balochi NLP Tools")
+    parser.add_argument("input_file", help="Input text file path")
+    parser.add_argument("--output", "-o", help="Output file path (optional)")
+    parser.add_argument(
+        "--task",
+        "-t",
+        required=True,
+        choices=["tokenize-words", "tokenize-sentences", "clean", "normalize"],
+        help="NLP task to perform",
+    )
+
     # Task-specific arguments
-    parser.add_argument('--remove-urls', action='store_true', help='Remove URLs from text')
-    parser.add_argument('--remove-emails', action='store_true', help='Remove email addresses from text')
-    parser.add_argument('--remove-numbers', action='store_true', help='Remove numbers from text')
-    parser.add_argument('--remove-emojis', action='store_true', help='Remove emojis from text')
-    parser.add_argument('--remove-special', action='store_true', help='Remove special characters from text')
-    parser.add_argument('--keep-chars', help='Special characters to keep (comma-separated)')
-    parser.add_argument('--remove-diacritics', action='store_true', help='Remove diacritical marks')
-    
+    parser.add_argument(
+        "--remove-urls", action="store_true", help="Remove URLs from text"
+    )
+    parser.add_argument(
+        "--remove-emails", action="store_true", help="Remove email addresses from text"
+    )
+    parser.add_argument(
+        "--remove-numbers", action="store_true", help="Remove numbers from text"
+    )
+    parser.add_argument(
+        "--remove-emojis", action="store_true", help="Remove emojis from text"
+    )
+    parser.add_argument(
+        "--remove-special",
+        action="store_true",
+        help="Remove special characters from text",
+    )
+    parser.add_argument(
+        "--keep-chars", help="Special characters to keep (comma-separated)"
+    )
+    parser.add_argument(
+        "--remove-diacritics", action="store_true", help="Remove diacritical marks"
+    )
+
     args = parser.parse_args()
-    
+
     # Read input text
     try:
         text = read_text_file(args.input_file)
@@ -51,53 +73,52 @@ def main():
     except Exception as e:
         print(f"Error reading input file: {str(e)}", file=sys.stderr)
         sys.exit(1)
-    
+
     # Process according to task
     try:
-        if args.task == 'tokenize-words':
+        if args.task == "tokenize-words":
             tokenizer = BalochiWordTokenizer()
             output = {
-                'tokens': tokenizer.tokenize(text),
-                'token_count': len(tokenizer.tokenize(text))
+                "tokens": tokenizer.tokenize(text),
+                "token_count": len(tokenizer.tokenize(text)),
             }
-            
-        elif args.task == 'tokenize-sentences':
+
+        elif args.task == "tokenize-sentences":
             tokenizer = BalochiSentenceTokenizer()
             output = {
-                'sentences': tokenizer.tokenize(text),
-                'sentence_count': len(tokenizer.tokenize(text))
+                "sentences": tokenizer.tokenize(text),
+                "sentence_count": len(tokenizer.tokenize(text)),
             }
-            
-        elif args.task == 'clean':
+
+        elif args.task == "clean":
             cleaner = BalochiTextCleaner()
-            keep_chars = args.keep_chars.split(',') if args.keep_chars else None
+            keep_chars = args.keep_chars.split(",") if args.keep_chars else None
             cleaned_text = cleaner.clean_text(
                 text,
                 remove_numbers=args.remove_numbers,
-                preserve_special_chars=not args.remove_special
+                preserve_special_chars=not args.remove_special,
             )
             output = {
-                'original_length': len(text),
-                'cleaned_length': len(cleaned_text),
-                'cleaned_text': cleaned_text
+                "original_length": len(text),
+                "cleaned_length": len(cleaned_text),
+                "cleaned_text": cleaned_text,
             }
-            
-        elif args.task == 'normalize':
+
+        elif args.task == "normalize":
             normalizer = BalochiTextNormalizer()
             normalized_text = normalizer.normalize(
-                text,
-                remove_diacritics=args.remove_diacritics
+                text, remove_diacritics=args.remove_diacritics
             )
             output = {
-                'original_length': len(text),
-                'normalized_length': len(normalized_text),
-                'normalized_text': normalized_text
+                "original_length": len(text),
+                "normalized_length": len(normalized_text),
+                "normalized_text": normalized_text,
             }
-            
+
     except Exception as e:
         print(f"Error processing text: {str(e)}", file=sys.stderr)
         sys.exit(1)
-    
+
     # Write output
     try:
         write_output(output, args.output)
@@ -105,5 +126,6 @@ def main():
         print(f"Error writing output: {str(e)}", file=sys.stderr)
         sys.exit(1)
 
-if __name__ == '__main__':
-    main() 
+
+if __name__ == "__main__":
+    main()
