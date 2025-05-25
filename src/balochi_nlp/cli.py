@@ -1,6 +1,7 @@
 import argparse
 import json
 import sys
+from typing import Dict, Optional, Union
 
 from balochi_nlp.preprocessing.cleaner import BalochiTextCleaner
 from balochi_nlp.preprocessing.normalizer import BalochiTextNormalizer
@@ -14,7 +15,7 @@ def read_text_file(file_path: str) -> str:
         return f.read()
 
 
-def write_output(output: dict, output_file: str = None):
+def write_output(output: Dict[str, Union[str, int, list]], output_file: Optional[str] = None) -> None:
     """Write output to file or stdout."""
     output_json = json.dumps(output, ensure_ascii=False, indent=2)
     if output_file:
@@ -24,7 +25,7 @@ def write_output(output: dict, output_file: str = None):
         print(output_json)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description="Balochi NLP Tools")
     parser.add_argument("input_file", help="Input text file path")
     parser.add_argument("--output", "-o", help="Output file path (optional)")
@@ -75,18 +76,22 @@ def main():
 
     # Process according to task
     try:
+        output: Dict[str, Union[str, int, list]] = {}
+        
         if args.task == "tokenize-words":
-            tokenizer = BalochiWordTokenizer()
+            word_tokenizer = BalochiWordTokenizer()
+            tokens = word_tokenizer.tokenize(text)
             output = {
-                "tokens": tokenizer.tokenize(text),
-                "token_count": len(tokenizer.tokenize(text)),
+                "tokens": tokens,
+                "token_count": len(tokens),
             }
 
         elif args.task == "tokenize-sentences":
-            tokenizer = BalochiSentenceTokenizer()
+            sentence_tokenizer = BalochiSentenceTokenizer()
+            sentences = sentence_tokenizer.tokenize(text)
             output = {
-                "sentences": tokenizer.tokenize(text),
-                "sentence_count": len(tokenizer.tokenize(text)),
+                "sentences": sentences,
+                "sentence_count": len(sentences),
             }
 
         elif args.task == "clean":
