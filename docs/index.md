@@ -45,10 +45,10 @@ This project is licensed under the MIT License. See the [LICENSE](https://github
 If you use this package in your research, please cite:
 
 ```bibtex
-@software{balochi_nlp2024,
+@software{balochi_nlp2025,
   title = {Balochi NLP: A Natural Language Processing Toolkit for Balochi},
   author = {Baloch, Hafeez},
-  year = {2024},
+  year = {2025},
   url = {https://github.com/hafeezBaluch/balochi-nlp}
 }
 ``` 

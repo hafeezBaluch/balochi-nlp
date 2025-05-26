@@ -4,7 +4,7 @@ import sys
 sys.path.insert(0, os.path.abspath('../../src'))
 
 project = 'Balochi NLP'
-copyright = '2024, Hafeez Baloch'
+copyright = '2025, Hafeez Baloch'
 author = 'Hafeez Baloch'
 release = '0.1.0'
 
