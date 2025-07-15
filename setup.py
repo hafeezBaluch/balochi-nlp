@@ -6,7 +6,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name="balochi-nlp",
-    version="0.1.0",
+    version="1.0.0",
     author="Hafeez Baloch",
     author_email="hafeezullahhassan2019@gmail.com",
     description=(
